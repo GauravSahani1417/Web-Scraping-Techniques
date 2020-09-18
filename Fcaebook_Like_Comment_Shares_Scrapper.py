@@ -2,8 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 
-username = ""
-password = ""
+username = "email"
+password = "password"
 
 class FaceBookBot():
     login_basic_url = 'https://mbasic.facebook.com/login'
@@ -12,7 +12,7 @@ class FaceBookBot():
             'email': username,
             'pass': password
         }
-    post_ID = ""
+    post_ID = "post id"
 
     def parse_html(self, request_url):
         with requests.Session() as session:
@@ -44,7 +44,7 @@ class FaceBookBot():
         REQUEST_URL = f'https://mbasic.facebook.com/ufi/reaction/profile/browser/fetch/?limit={limit}&total_count=17&ft_ent_identifier={self.post_ID}'
 
         soup = BeautifulSoup(self.parse_html(REQUEST_URL).content, "html.parser")
-        names = soup.find_all('h3',{"class": "df cs"})
+        names = soup.find_all('h3')
         people_who_liked = []
         for name in names:
             people_who_liked.append(name.text)
@@ -82,16 +82,16 @@ People_who_liked = bot.post_likes()
 People_who_comment = bot.post_comments()
 People_who_shared = bot.post_shares()
 
-print(Post_Content)
-print(Post_Date)
-print(People_who_liked)
-print(People_who_comment)
-print(People_who_shared)
+print("Post Contents: ", Post_Content)
+print("Post Date: ", Post_Date)
+print("People who Liked: ", People_who_liked)
+print("People who commented: ", People_who_comment)
+print("People who shared: ", People_who_shared)
 
-dict = [{'Post_Content' : Post_Content, 'Post_Date' : Post_Date, 'People_who_liked': People_who_liked,
-         'People_who_comment': People_who_comment, 'People_who_shared': People_who_shared}] 
+dict = {'Post_Content' : [Post_Content], 'Post_Date' : [Post_Date], 'People_who_liked': [People_who_liked],
+         'People_who_comment': [People_who_comment], 'People_who_shared': [People_who_shared]} 
 
-df = pd.DataFrame([dict])
+df = pd.DataFrame.from_dict(dict)
 
 df.to_csv('C:/Users/gaurav sahani/Desktop/Machine Learning/WebScrapping/Web Scrapping Adriaan/Post_Date_Likes_Comment_Shares_info.csv')
-
+ 
