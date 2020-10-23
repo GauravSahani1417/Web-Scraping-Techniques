@@ -1,7 +1,7 @@
 import os, glob
 import pandas as pd
 
-path = r"C:\Users\gaurav sahani\Desktop\Neubrain Internship\Chief Electorial Office\AC_003 Nandurbar 09-14-19\AC_003_2019\AC_003_19_Excel"
+path = r"Path where the excel files are stored"
 
 all_files = glob.glob(os.path.join(path, "AC_*_*_*.csv"))
 
@@ -18,4 +18,4 @@ merged_df.drop('file', axis='columns', inplace=True)
 merged_df['Year'] = 2019
 merged_df['Election_Type'] = "Assembly"
 
-merged_df.to_csv(r'C:\Users\gaurav sahani\Desktop\Neubrain Internship\Chief Electorial Office\AC_003 Nandurbar 09-14-19\AC_003_2019\AC_003_19_Excel\AC_003_2019_Merged.csv')
+merged_df.to_csv('path to store the csv file')
